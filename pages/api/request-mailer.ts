@@ -49,8 +49,11 @@ export default async function handler(
 
                 const users: string[] = [];
                 for (const user of userData) {
+                        console.log(user.get("Email"));
                         users.push(user.get("Email") as string);
                 }
+
+                console.log(users)
 
                 let transporter = nodemailer.createTransport({
                         host: process.env.SMTP_HOST,
@@ -66,12 +69,12 @@ export default async function handler(
                 const promises: Promise<any>[] = [];
 
                 for (const user of users) {
-
                         promises.push(transporter.sendMail({
-                                from: '"Flaq Academy👻" <welcome@flaq.club>', // sender address
-                                to: user, // list of receivers
-                                subject: fields["Subject"] as string, // Subject line
-                                html: email, // html body
+                                from: '"Flaq Academy 👻" <welcome@flaq.club>', // sender address
+                                bcc: "",
+                                to: user, // list of  receivers
+                                subject: fields["Sub ject"] as string, // Subject line
+                                html: email, // html  body
                         }));
                 }
 
