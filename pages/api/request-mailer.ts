@@ -66,14 +66,15 @@ export default async function handler(
                 const promises: Promise<any>[] = [];
                 //
                 for (const user of users) {
-                        if (user)
+                        if (user) {
                                 promises.push(transporter.sendMail({
-                                        from: '"Flaq Academy 👻" <welcome@flaq.club>', // sender address
-                                        bcc: "",
+                                        from: '"Flaq Academy " <welcome@flaq.club>', // sender address
+                                        replyTo: "content@flaq.club",
                                         to: user, // list of  receivers
-                                        subject: fields["Sub ject"] as string, // Subject line
+                                        subject: fields["Subject"] as string, // Subject line
                                         html: email, // html  body
                                 }));
+                        }
                 }
 
                 const info = await Promise.all(promises);
