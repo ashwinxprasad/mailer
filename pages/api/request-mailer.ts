@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import airtable from "airtable";
 import axios from "axios";
 import nodemailer from "nodemailer";
-import { createHtml } from '../data/email-template-1';
+import { createHtml } from '../../data/email-template-1';
 
 
 export default async function handler(
