@@ -67,19 +67,19 @@ export default async function handler(
                 });
 
                 const promises: Promise<any>[] = [];
-
-                for (const user of users) {
-                        promises.push(transporter.sendMail({
-                                from: '"Flaq Academy 👻" <welcome@flaq.club>', // sender address
-                                bcc: "",
-                                to: user, // list of  receivers
-                                subject: fields["Sub ject"] as string, // Subject line
-                                html: email, // html  body
-                        }));
-                }
-
-                const info = await Promise.all(promises);
-                console.log(info)
+                //
+                // for (const user of users) {
+                //         promises.push(transporter.sendMail({
+                //                 from: '"Flaq Academy 👻" <welcome@flaq.club>', // sender address
+                //                 bcc: "",
+                //                 to: user, // list of  receivers
+                //                 subject: fields["Sub ject"] as string, // Subject line
+                //                 html: email, // html  body
+                //         }));
+                // }
+                //
+                // const info = await Promise.all(promises);
+                // console.log(info)
 
                 res.status(200).json({ seb: "Danke Dear" });
 
