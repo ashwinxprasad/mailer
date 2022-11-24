@@ -37,7 +37,7 @@ export default async function handler(
     console.log({ recordId })
 
     const record = await table.find(recordId)
-    console.log(record)
+    console.log(await record.fetch())
   }
 
   catch (e) {
