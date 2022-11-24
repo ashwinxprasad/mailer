@@ -18,9 +18,6 @@ export default async function handler(
         const base = airtable.base(req.body.base.id as string);
         const table = base(process.env.TABLE_NAME as string);
 
-        // const record = await table.find("")
-        //
-
         try {
 
                 const payload = await axios.get(`https://api.airtable.com/v0/bases/${req.body.base.id}/webhooks/${req.body.webhook.id}/payloads`, {
@@ -66,22 +63,22 @@ export default async function handler(
 
                 });
 
+                const promises: Promise<any>[] = [];
 
-                // from: '"Flaq Academy" <welcome@flaq.club>',
-                //
-                //
-                let info = await transporter.sendMail({
-                        from: '"Flaq Academy👻" <welcome@flaq.club>', // sender address
-                        to: "ashwin@onpar.in", // list of receivers
-                        subject: fields["Subject"] as string, // Subject line
-                        html: email, // html body
-                });
+                for (const user of users) {
+
+                        promises.push(transporter.sendMail({
+                                from: '"Flaq Academy👻" <welcome@flaq.club>', // sender address
+                                to: user, // list of receivers
+                                subject: fields["Subject"] as string, // Subject line
+                                html: email, // html body
+                        }));
+                }
+
+                const info = await Promise.all(promises);
                 console.log(info)
 
-
-
                 res.status(200).json({ seb: "Danke Dear" });
-
 
         }
 
