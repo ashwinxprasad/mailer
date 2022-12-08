@@ -41,7 +41,7 @@ export default async function handler(
                 })
 
 
-                const userData = await base('Testing Users')
+                const userData = await base('Landing Page Users')
                         .select({
                                 view: "Grid view",
                         })
