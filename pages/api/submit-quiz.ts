@@ -39,7 +39,7 @@ export default async function handler(
   const submissionsBase = base2("Submissions");
 
   try {
-    const createRes = await submissionsBase.create([
+    const _createRes = await submissionsBase.create([
       {
         "fields": {
           "Name": body.name,
@@ -48,7 +48,7 @@ export default async function handler(
         }
       },
     ],)
-    return res.status(200).json({ message: "Records created", data: createRes })
+    return res.status(200).json({ message: "Records created" })
   }
   catch (e) {
     console.log(e);
