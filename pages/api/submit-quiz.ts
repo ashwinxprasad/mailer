@@ -4,7 +4,7 @@ import airtable from 'airtable';
 interface RequestBody {
   email: string,
   name: string,
-  quizId: string,
+  groupId: string,
 }
 
 
@@ -13,7 +13,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const body = req.body as RequestBody;
-  if (!body.email || !body.name || !body.quizId) {
+  if (!body.email || !body.name || !body.groupId) {
     return res.status(400).json({ error: "Bad Request. Include all fields" })
   }
 
@@ -27,11 +27,11 @@ export default async function handler(
     .all();
   const quizIds: number[] = [];
   for (const quiz of data) {
-    quizIds.push(quiz.get("Id") as number);
+    quizIds.push(quiz.get("Group Id") as number);
   }
 
-  if (!quizIds.includes(Number(body.quizId))) {
-    return res.status(400).json({ error: "Invalid Quiz Id" })
+  if (!quizIds.includes(Number(body.groupId))) {
+    return res.status(400).json({ error: "Invalid Quiz Group Id" })
   }
 
 
@@ -44,7 +44,7 @@ export default async function handler(
         "fields": {
           "Name": body.name,
           "Email": body.email,
-          "Quiz ID": body.quizId,
+          "Quiz Group Id": body.groupId,
         }
       },
     ],)
