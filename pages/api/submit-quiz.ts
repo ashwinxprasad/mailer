@@ -35,7 +35,8 @@ export default async function handler(
   }
 
 
-  const submissionsBase = base("Submissions");
+  const base2 = airtable.base("appaaeyWRls5fW96l")
+  const submissionsBase = base2("Submissions");
 
   try {
     const createRes = await submissionsBase.create([
