@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import airtable from 'airtable';
+import NextCors from "nextjs-cors";
 
 interface RequestBody {
   email: string,
@@ -12,6 +13,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+
+  await NextCors(req, res, {
+    // Options
+    methods: ['POST'],
+    origin: '*',
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
   const body = req.body as RequestBody;
   if (!body.email || !body.name || !body.groupId) {
     return res.status(400).json({ error: "Bad Request. Include all fields" })
