@@ -24,13 +24,14 @@ export default async function handler(
     },
   });
 
-  transporter.sendMail({
+  const result = await transporter.sendMail({
     from: '"Flaq Academy " <welcome@flaq.club>', // sender address
     replyTo: "content@flaq.club",
     to: 'ashwin@flaq.club', // list of  receivers
     subject: "Cron Ran", // Subject line
     html: "Cron Ran at " + Date.now().toString(), // html  body
   })
+  console.log("Cron Calle")
 
-  return res.status(200).json({ success: true })
+  return res.status(200).json({ success: true, res: result })
 }
