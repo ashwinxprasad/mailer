@@ -67,13 +67,14 @@ export default async function handler(
                 //
                 for (const user of users) {
                         if (user) {
-                                promises.push(transporter.sendMail({
-                                        from: '"Flaq Academy " <welcome@flaq.club>', // sender address
-                                        replyTo: "content@flaq.club",
-                                        to: user, // list of  receivers
-                                        subject: fields["Subject"] as string, // Subject line
-                                        html: email, // html  body
-                                }));
+                                promises.push(
+                                        transporter.sendMail({
+                                                from: '"Flaq Academy " <welcome@flaq.club>', // sender address
+                                                replyTo: "content@flaq.club",
+                                                to: user, // list of  receivers
+                                                subject: fields["Subject"] as string, // Subject line
+                                                html: email, // html  body
+                                        }));
                         }
                 }
 
