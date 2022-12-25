@@ -1,6 +1,6 @@
 export const createWeeklyEmail = ({ image_url, body, button_link, button_text, title }: { image_url: string, body: string, button_link: string, button_text: string, title: string }) => {
   return `
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
 <head>
@@ -113,7 +113,7 @@ export const createWeeklyEmail = ({ image_url, body, button_link, button_text, t
 													<table class="heading_block block-2" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="padding-left:10px;padding-right:10px;text-align:center;width:100%;">
-																<h1 style="margin: 0; color: #000000; font-size: 38px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; line-height: 200%; text-align: left; direction: ltr; font-weight: 700; letter-spacing: normal; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder">${title}</span></h1>
+																<h1 style="margin: 0; color: #000000; direction: ltr; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; font-size: 38px; font-weight: 700; letter-spacing: normal; line-height: 200%; text-align: center; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder">${title}</span></h1>
 															</td>
 														</tr>
 													</table>
@@ -206,5 +206,6 @@ export const createWeeklyEmail = ({ image_url, body, button_link, button_text, t
 	</table><!-- End -->
 </body>
 
-</html>`
+</html>
+`
 }
