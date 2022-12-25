@@ -3,6 +3,7 @@ import NextCors from "nextjs-cors";
 import nodemailer from "nodemailer";
 import airtable from 'airtable';
 import SMTPTransport from "nodemailer/lib/smtp-transport";
+import { createWeeklyEmail } from "../../data/email-template-2";
 
 async function prepareContent() {
   // A simple object is more convenient than a classed object?
@@ -97,12 +98,19 @@ export default async function handler(
     // Check if the content even exists
     if (!content[user.level]) { continue; }
 
+    const emailHtml = createWeeklyEmail({
+      body: content[user.level].body,
+      title: content[user.level].title,
+      button_text: "READ MORE",
+      button_link: "https://learn.flaq.club",
+      image_url: "https://flaq-assets.s3.ap-south-1.amazonaws.com/8.jpg",
+    })
     const result = transporter.sendMail({
       from: '"Flaq Academy " <welcome@flaq.club>', // sender address
       replyTo: "content@flaq.club",
       to: user.email, // list of  receivers
-      subject: content[user.level].title, // Subject line
-      html: content[user.level].body, // html  body
+      subject: `Flaq - ${content[user.level].title}`, // Subject line
+      html: emailHtml, // html  body
     })
     promises.push(result)
   }
