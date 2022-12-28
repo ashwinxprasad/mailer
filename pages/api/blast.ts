@@ -118,7 +118,13 @@ export default async function handler(
   }
   const result = await Promise.all(promises);
   const updateResult = await updateUserLevels(users);
-  console.log({ updateResult })
+  await transporter.sendMail({
+    from: '"Flaq Academy " <welcome@flaq.club>', // sender address
+    replyTo: "content@flaq.club",
+    to: "ashwin@flaq.club,content@flaq.club", // list of  receivers
+    subject: `Flaq - Email Sent Report`, // Subject line
+    html: `Email Report - \n\n${JSON.stringify(result, null, 3)}\nLevel Update Report = ${JSON.stringify(updateResult, null, 3)}`, // html  body
+  })
 
 
 
