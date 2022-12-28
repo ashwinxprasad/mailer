@@ -36,7 +36,7 @@ interface User {
 async function getUsers() {
   const users: User[] = [];
   const usersBase = airtable.base("appkw1kgjwo6TWrFK");
-  const usersTable = usersBase("Testing Users");
+  const usersTable = usersBase("Landing Page Users");
   const usersList = await usersTable
     .select({
       view: "Grid view",
