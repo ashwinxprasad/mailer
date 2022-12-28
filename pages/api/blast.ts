@@ -20,7 +20,9 @@ async function prepareContent() {
     const title = content.get("Title");
     const body = content.get("Body");
     const level = content.get("Level") as number;
-    contentObject[level] = { title, body }
+    const link = content.get("Link") as string;
+    const imageUrl = content.get("ImageUrl") as string;
+    contentObject[level] = { title, body, link, imageUrl }
   }
   return contentObject;
 }
@@ -102,8 +104,8 @@ export default async function handler(
       body: content[user.level].body,
       title: content[user.level].title,
       button_text: "READ MORE",
-      button_link: "https://learn.flaq.club",
-      image_url: "https://flaq-assets.s3.ap-south-1.amazonaws.com/8.jpg",
+      button_link: content[user.level].link,
+      image_url: content[user.level].imageUrl,
     })
     const result = transporter.sendMail({
       from: '"Flaq Academy " <welcome@flaq.club>', // sender address
