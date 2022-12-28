@@ -117,7 +117,13 @@ export default async function handler(
     promises.push(result)
   }
   const result = await Promise.all(promises);
-  const updateResult = await updateUserLevels(users);
+  let updateResult;
+  try {
+    updateResult = await updateUserLevels(users);
+  }
+  catch (e) {
+    console.log(e)
+  }
   await transporter.sendMail({
     from: '"Flaq Academy " <welcome@flaq.club>', // sender address
     replyTo: "content@flaq.club",
