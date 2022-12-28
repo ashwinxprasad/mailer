@@ -123,7 +123,7 @@ export default async function handler(
     replyTo: "content@flaq.club",
     to: "ashwin@flaq.club,content@flaq.club", // list of  receivers
     subject: `Flaq - Email Sent Report`, // Subject line
-    html: `Email Report - \n\n${JSON.stringify(result, null, 3)}\nLevel Update Report = ${JSON.stringify(updateResult, null, 3)}`, // html  body
+    html: `Email Report - <br/><br/><pre>${JSON.stringify(result, null, 3)}</pre><br/><br/>Level Update Report - <br/><br/><pre>${JSON.stringify(updateResult, null, 3)}</pre> <br/> Flaq Tech`, // html  body
   })
 
 
