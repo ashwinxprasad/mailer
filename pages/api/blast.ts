@@ -42,7 +42,7 @@ async function getUsers() {
     .all();
   for (const user of usersList) {
     const email = user.get("Email");
-    const userLevel = (user.get("Level") ?? 0) as number;
+    const userLevel = (user.get("Level") ?? 1) as number;
     const id = user.getId();
     if (!email) { continue; }
     users.push({
