@@ -56,7 +56,7 @@ async function getUsers() {
 
 async function updateUserLevels(users: User[]) {
   const usersBase = airtable.base("appkw1kgjwo6TWrFK");
-  const usersTable = usersBase("Testing Users");
+  const usersTable = usersBase("Landing Page Users");
   const updateObject: any = []; // not modeling the airtable object
   for (const user of users) {
     updateObject.push({
@@ -123,7 +123,7 @@ export default async function handler(
     replyTo: "content@flaq.club",
     to: "ashwin@flaq.club,content@flaq.club", // list of  receivers
     subject: `Flaq - Email Sent Report`, // Subject line
-    html: `Email Report - <br/><br/><pre>${JSON.stringify(result, null, 3)}</pre><br/><br/>Level Update Report - <br/><br/><pre>${JSON.stringify(updateResult, null, 3)}</pre> <br/> Flaq Tech`, // html  body
+    html: `<h2>Email Report</h2> - <br/><br/><pre>${JSON.stringify(result, null, 3)}</pre><br/><br/><h2>Level Update Report</h2> - <br/><br/><pre>${JSON.stringify(updateResult, null, 3)}</pre> <br/> Flaq Tech`, // html  body
   })
 
 
