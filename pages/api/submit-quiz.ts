@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import airtable from 'airtable';
 import NextCors from "nextjs-cors";
+import validator from "validator";
 
 interface RequestBody {
   email: string,
@@ -23,6 +24,11 @@ export default async function handler(
   const body = req.body as RequestBody;
   if (!body.email || !body.name || !body.groupId) {
     return res.status(400).json({ error: "Bad Request. Include all fields" })
+  }
+
+  if (!validator.isEmail(body.email)) {
+    console.log("Error validating", body.email)
+    return res.status(400).json({ error: "Invalid Email" })
   }
 
   const base = airtable.base("appx2tBkSX4tjNtOA");
