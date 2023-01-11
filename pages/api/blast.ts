@@ -85,16 +85,24 @@ export default async function handler(
         origin: '*',
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     })
+    let transporter: nodemailer.Transporter
 
-    let transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: process.env.SMTP_USER, // generated ethereal user
-            pass: process.env.SMTP_PASSWORD, // generated ethereal password
-        },
-    })
+    try {
+        transporter = nodemailer.createTransport({
+            host: process.env.SMTP_HOST,
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                user: process.env.SMTP_USER, // generated ethereal user
+                pass: process.env.SMTP_PASSWORD, // generated ethereal password
+            },
+        })
+    } catch (e) {
+        console.log('Error creating transporter')
+        return res
+            .status(400)
+            .json({ success: false, error: (e as any).toString() })
+    }
 
     const userCollection = await makeUserCollection()
     const content = await prepareContent()
