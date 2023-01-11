@@ -151,8 +151,8 @@ export default async function handler(
             )}</pre> <br/> Flaq Tech`, // html  body
         })
     } catch (e) {
+        console.log('Error')
         console.log(e)
     }
-
     return res.status(200).json({ success: true, result })
 }
