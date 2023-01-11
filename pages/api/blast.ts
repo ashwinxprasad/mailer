@@ -71,7 +71,12 @@ async function updateUserLevels(users: User[], userCollection: Collection) {
             level: user.level + 1,
         })
     }
-    userCollection.updateMany({}, updateObject)
+    try {
+        await userCollection.updateMany({}, updateObject)
+    } catch (e) {
+        console.log('Error updating users')
+        console.log(e)
+    }
     return await usersTable.update(updateObject)
 }
 
