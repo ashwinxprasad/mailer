@@ -47,7 +47,7 @@ async function getUsers(userCollection: Collection) {
     //     .all()
     for (const user of data) {
         const email = user['email']
-        const userLevel = (user.get('level') ?? 1) as number
+        const userLevel = (user['level'] ?? 1) as number
         const id = user['_id']
         if (!email) {
             continue
