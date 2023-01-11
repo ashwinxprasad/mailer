@@ -62,22 +62,12 @@ async function getUsers(userCollection: Collection) {
 }
 
 async function updateUserLevels(users: User[], userCollection: Collection) {
-    const usersBase = airtable.base('appkw1kgjwo6TWrFK')
-    const usersTable = usersBase('Landing Page Users')
-    const updateObject: any = [] // not modeling the airtable object
-    for (const user of users) {
-        updateObject.push({
-            id: user.id,
-            level: user.level + 1,
-        })
-    }
     try {
-        await userCollection.updateMany({}, updateObject)
+        return await userCollection.updateMany({}, { $inc: { level: 1 } })
     } catch (e) {
         console.log('Error updating users')
         console.log(e)
     }
-    return await usersTable.update(updateObject)
 }
 
 export default async function handler(
