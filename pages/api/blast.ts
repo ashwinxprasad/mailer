@@ -6,6 +6,8 @@ import SMTPTransport from 'nodemailer/lib/smtp-transport'
 import { createWeeklyEmail } from '../../data/email-template-2'
 import { Collection, ObjectId } from 'mongodb'
 import { makeUserCollection } from '../../lib/collections/user'
+import clientPromise from '../../lib/mongodb'
+import { makeBlastCollection } from '../../lib/collections/blast'
 
 async function prepareContent() {
     // A simple object is more convenient than a classed object?
@@ -99,7 +101,8 @@ export default async function handler(
             .json({ success: false, error: (e as any).toString() })
     }
 
-    const userCollection = await makeUserCollection()
+    const client = await clientPromise
+    const userCollection = await makeUserCollection(client)
     const content = await prepareContent()
     const users = await getUsers(userCollection)
     const promises: Promise<SMTPTransport.SentMessageInfo>[] = []
@@ -149,5 +152,10 @@ export default async function handler(
         console.log('Error')
         console.log(e)
     }
+    const blastCollection: Collection = await makeBlastCollection(client)
+    await blastCollection.insertOne({
+        createdAt: new Date(),
+        count: result.length,
+    })
     return res.status(200).json({ success: true, result })
 }
