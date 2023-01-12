@@ -8,6 +8,7 @@ import { Collection, ObjectId } from 'mongodb'
 import { makeUserCollection } from '../../lib/collections/user'
 import clientPromise from '../../lib/mongodb'
 import { makeBlastCollection } from '../../lib/collections/blast'
+import { start } from 'repl'
 
 async function prepareContent() {
     // A simple object is more convenient than a classed object?
@@ -76,6 +77,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+    const startTime = +new Date()
     await NextCors(req, res, {
         // Options
         methods: ['POST', 'OPTIONS'],
@@ -152,10 +154,12 @@ export default async function handler(
         console.log('Error')
         console.log(e)
     }
+    const endTime = +new Date()
     const blastCollection: Collection = await makeBlastCollection(client)
     await blastCollection.insertOne({
         createdAt: new Date(),
         count: result.length,
+        execTimeMs: endTime - startTime,
     })
     return res.status(200).json({ success: true, result })
 }
